@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Заявки жителей — демонстрационный стенд</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Интерактивный макет: приём и обработка заявок жителей многоквартирных домов. Всё нажимается.">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://demo.botneversleeps.com/uk-a7f2/">
+<meta property="og:title" content="Заявки жителей, которые не теряются">
+<meta property="og:description" content="Интерактивный макет: житель подаёт заявку с телефона — диспетчер видит её сразу. Всё нажимается.">
+<meta property="og:image" content="https://demo.botneversleeps.com/uk-a7f2/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%231B3FD1'/><rect x='18' y='14' width='28' height='36' rx='4' fill='%23fff'/><rect x='24' y='22' width='16' height='3' fill='%231B3FD1'/><rect x='24' y='30' width='16' height='3' fill='%231B3FD1'/><rect x='24' y='38' width='10' height='3' fill='%231B3FD1'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E7E7E2;
+  --paper-2:#DEDED8;
+  --card:#FFFFFF;
+  --ink:#14161A;
+  --ink-70:#42474E;
+  --ink-45:#767B82;
+  --line:#CFCEC7;
+  --line-2:#E4E3DD;
+  --blue:#1B3FD1;
+  --blue-soft:#E8EBFB;
+  --amber:#C67F0E;
+  --amber-soft:#FBF0DC;
+  --red:#B93225;
+  --red-soft:#FAE6E3;
+  --green:#1B6E48;
+  --green-soft:#E2F1EA;
+  --display:"Oswald","Arial Narrow",sans-serif;
+  --body:"Golos Text","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --r:10px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:15px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 24px 64px}
+
+/* ---------- hero ---------- */
+.eyebrow{
+  font-family:var(--display);
+  font-weight:500;
+  font-size:12px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--ink-45);
+  display:flex;align-items:center;gap:10px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+h1{
+  font-family:var(--display);
+  font-weight:600;
+  text-transform:uppercase;
+  font-size:clamp(34px,6vw,64px);
+  line-height:.98;
+  letter-spacing:-.005em;
+  margin:18px 0 0;
+}
+h1 .accent{color:var(--blue)}
+.lede{
+  max-width:56ch;
+  margin:18px 0 0;
+  color:var(--ink-70);
+  font-size:16px;
+}
+
+/* ---------- stage ---------- */
+.stage{
+  display:grid;
+  grid-template-columns:340px 1fr;
+  gap:28px;
+  margin-top:40px;
+  align-items:start;
+}
+.colhead{
+  font-family:var(--display);
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:12px;
+  font-weight:600;
+  color:var(--ink-45);
+  padding-bottom:10px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:16px;
+  display:flex;justify-content:space-between;align-items:baseline;gap:8px;
+}
+.colhead .addr{font-family:var(--mono);letter-spacing:0;text-transform:none;font-size:11px}
+
+/* ---------- notice (signature) ---------- */
+.notice-stage{
+  background:
+    repeating-linear-gradient(0deg,rgba(0,0,0,.022) 0 2px,transparent 2px 5px),
+    var(--paper-2);
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  padding:34px 20px;
+  display:flex;justify-content:center;
+  min-height:560px;align-items:center;
+}
+.notice{
+  background:#FBFAF6;
+  width:250px;
+  padding:20px 18px 18px;
+  transform:rotate(-1.4deg);
+  box-shadow:0 10px 24px rgba(20,22,26,.13);
+  position:relative;
+  border:1px solid #E8E5DB;
+}
+.notice::before,.notice::after{
+  content:"";position:absolute;top:-11px;width:56px;height:22px;
+  background:rgba(255,255,255,.55);
+  border:1px solid rgba(20,22,26,.09);
+  transform:rotate(-3deg);
+}
+.notice::before{left:14px}
+.notice::after{right:14px;transform:rotate(4deg)}
+.notice h3{
+  font-family:var(--display);font-weight:600;text-transform:uppercase;
+  font-size:17px;line-height:1.15;margin:0 0 6px;letter-spacing:.01em;
+}
+.notice p{margin:0;font-size:12px;color:var(--ink-70);line-height:1.42}
+.notice .rule{height:1px;background:var(--line);margin:12px 0}
+.qr{display:grid;grid-template-columns:repeat(21,1fr);width:132px;margin:0 auto;aspect-ratio:1}
+.qr i{background:transparent}
+.qr i.on{background:var(--ink)}
+.notice .house{
+  font-family:var(--mono);font-size:11px;text-align:center;margin-top:10px;
+  color:var(--ink);letter-spacing:-.02em;
+}
+.notice .org{
+  font-family:var(--display);text-transform:uppercase;letter-spacing:.16em;
+  font-size:9px;color:var(--ink-45);text-align:center;margin-top:12px;
+}
+
+/* ---------- phone ---------- */
+.phone{
+  width:296px;margin:0 auto;
+  background:var(--ink);
+  border-radius:34px;
+  padding:9px;
+  box-shadow:0 18px 40px rgba(20,22,26,.22);
+}
+.screen{
+  background:#fff;border-radius:26px;overflow:hidden;
+  height:560px;display:flex;flex-direction:column;
+}
+.statusbar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:9px 16px 4px;font-family:var(--mono);font-size:10px;color:var(--ink-45);
+}
+.appbar{
+  padding:6px 16px 12px;border-bottom:1px solid var(--line-2);
+}
+.appbar .brand{
+  font-family:var(--display);text-transform:uppercase;font-weight:600;
+  font-size:13px;letter-spacing:.1em;
+}
+.appbar .addr{font-family:var(--mono);font-size:10.5px;color:var(--ink-45);margin-top:1px}
+.body{padding:16px;overflow-y:auto;flex:1}
+.body h4{
+  font-family:var(--display);text-transform:uppercase;font-size:15px;
+  font-weight:600;margin:0 0 4px;letter-spacing:.02em;
+}
+.body .sub{font-size:12.5px;color:var(--ink-45);margin:0 0 16px;line-height:1.4}
+
+/* form bits */
+.field{margin-bottom:10px}
+.field label{
+  display:block;font-family:var(--display);text-transform:uppercase;
+  font-size:9.5px;letter-spacing:.14em;color:var(--ink-45);margin-bottom:4px;
+}
+.field .val{
+  border:1px solid var(--line);border-radius:8px;padding:9px 11px;
+  font-size:13.5px;min-height:36px;background:#fff;
+}
+.field .val.empty{color:#B7BAC0}
+.field .val.filled{border-color:var(--ink);}
+.locked{background:var(--blue-soft);border-color:transparent;font-family:var(--mono);font-size:12px}
+
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tile{
+  border:1px solid var(--line);border-radius:8px;padding:10px 10px 11px;
+  cursor:pointer;background:#fff;text-align:left;font-family:var(--body);
+  transition:border-color .12s,transform .12s;
+}
+.tile:hover{border-color:var(--ink)}
+.tile:active{transform:scale(.98)}
+.tile .code{
+  font-family:var(--mono);font-size:10px;font-weight:600;color:var(--blue);
+  border:1px solid var(--blue);border-radius:3px;padding:0 4px;display:inline-block;
+}
+.tile .nm{display:block;font-size:12.5px;margin-top:7px;line-height:1.2}
+
+.photo-slot{
+  border:1px dashed var(--line);border-radius:8px;height:74px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;color:var(--ink-45);cursor:pointer;background:#fff;width:100%;
+  font-family:var(--body);
+}
+.photo-slot.has{
+  border-style:solid;border-color:var(--line);
+  background:linear-gradient(135deg,#C9CEC6,#9FA79C 60%,#7E8A84);
+  color:#fff;font-family:var(--mono);font-size:10px;
+}
+
+/* request card in phone */
+.rcard{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.rcard .top{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:9px 12px;border-bottom:1px solid var(--line-2);
+}
+.rcard .num{font-family:var(--mono);font-size:12px;font-weight:600}
+.rcard .mid{padding:11px 12px;font-size:12.5px;line-height:1.4}
+.rcard .meta{
+  padding:9px 12px;border-top:1px solid var(--line-2);
+  font-family:var(--mono);font-size:10.5px;color:var(--ink-45);
+  display:flex;justify-content:space-between;gap:8px;
+}
+.pill{
+  font-family:var(--display);text-transform:uppercase;font-size:9.5px;
+  letter-spacing:.1em;font-weight:600;padding:3px 7px;border-radius:3px;white-space:nowrap;
+}
+.pill.new{background:var(--blue-soft);color:var(--blue)}
+.pill.work{background:var(--amber-soft);color:var(--amber)}
+.pill.done{background:var(--green-soft);color:var(--green)}
+.pill.late{background:var(--red-soft);color:var(--red)}
+.pill.warn{background:var(--red-soft);color:var(--red)}
+
+.push{
+  border-left:3px solid var(--blue);background:var(--blue-soft);
+  padding:10px 12px;border-radius:0 8px 8px 0;margin-bottom:12px;
+  animation:slide .35s ease-out;
+}
+.push.ok{border-color:var(--green);background:var(--green-soft)}
+.push .t{
+  font-family:var(--display);text-transform:uppercase;font-size:9.5px;
+  letter-spacing:.13em;color:var(--ink-45);margin-bottom:3px;
+}
+.push .m{font-size:12.5px;line-height:1.4}
+@keyframes slide{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+
+.stars{display:flex;gap:6px;justify-content:center;margin:14px 0 4px}
+.star{
+  width:34px;height:34px;border:none;background:none;cursor:pointer;padding:0;
+  color:var(--line);transition:color .1s,transform .1s;
+}
+.star:hover{transform:scale(1.12)}
+.star.lit{color:var(--amber)}
+.star svg{width:100%;height:100%;display:block}
+
+.empty{
+  border:1px dashed var(--line);border-radius:10px;padding:22px 14px;
+  text-align:center;font-size:12.5px;color:var(--ink-45);
+}
+
+/* buttons */
+.btn{
+  display:block;width:100%;border:none;cursor:pointer;
+  background:var(--blue);color:#fff;border-radius:8px;
+  padding:12px;font-family:var(--display);text-transform:uppercase;
+  letter-spacing:.1em;font-size:12px;font-weight:600;
+  transition:filter .12s,transform .12s;
+}
+.btn:hover{filter:brightness(1.1)}
+.btn:active{transform:scale(.985)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--ink);filter:none}
+.btn+.btn{margin-top:8px}
+.footpad{padding:12px 16px 16px;border-top:1px solid var(--line-2);background:#fff}
+
+.pulse{position:relative}
+.pulse::after{
+  content:"";position:absolute;inset:-3px;border-radius:11px;
+  border:2px solid var(--blue);opacity:0;animation:ring 1.9s ease-out infinite;
+  pointer-events:none;
+}
+@keyframes ring{0%{opacity:.65;transform:scale(1)}70%{opacity:0;transform:scale(1.05)}100%{opacity:0}}
+
+/* install sheet */
+.sheet{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:14px}
+.sheet .os{display:flex;border-bottom:1px solid var(--line-2)}
+.sheet .os button{
+  flex:1;border:none;background:#fff;padding:8px;cursor:pointer;
+  font-family:var(--display);text-transform:uppercase;font-size:10px;
+  letter-spacing:.12em;color:var(--ink-45);
+}
+.sheet .os button.on{background:var(--ink);color:#fff}
+.sheet .how{padding:11px 12px;font-size:12px;color:var(--ink-70);line-height:1.45}
+
+/* ---------- right panel ---------- */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--line)}
+.tab{
+  border:none;background:none;cursor:pointer;padding:13px 20px;
+  font-family:var(--display);text-transform:uppercase;letter-spacing:.12em;
+  font-size:12px;font-weight:600;color:var(--ink-45);position:relative;
+}
+.tab.on{color:var(--ink);box-shadow:inset 0 -2px 0 var(--blue)}
+.tab .dot{
+  width:6px;height:6px;border-radius:50%;background:var(--blue);
+  display:inline-block;margin-left:7px;vertical-align:middle;
+  animation:blip 1.4s ease-in-out infinite;
+}
+@keyframes blip{50%{opacity:.25}}
+.pane{padding:20px}
+
+.counters{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line-2);border-radius:8px;overflow:hidden;margin-bottom:20px}
+.counter{background:#fff;padding:13px 14px}
+.counter .n{font-family:var(--mono);font-size:26px;font-weight:600;line-height:1}
+.counter .l{
+  font-family:var(--display);text-transform:uppercase;font-size:9.5px;
+  letter-spacing:.13em;color:var(--ink-45);margin-top:6px;
+}
+.counter.alert .n{color:var(--red)}
+
+.feedhead{
+  font-family:var(--display);text-transform:uppercase;letter-spacing:.14em;
+  font-size:11px;font-weight:600;color:var(--ink-45);margin-bottom:10px;
+}
+.row{
+  border:1px solid var(--line-2);border-radius:8px;padding:13px 15px;margin-bottom:8px;
+  display:grid;grid-template-columns:66px 1fr auto;gap:14px;align-items:start;
+}
+.row.flash{animation:drop .5s ease-out;border-color:var(--blue)}
+@keyframes drop{0%{opacity:0;transform:translateY(-10px);background:var(--blue-soft)}100%{opacity:1;transform:none}}
+.row .id{font-family:var(--mono);font-size:12px;font-weight:600}
+.row .time{font-family:var(--mono);font-size:10px;color:var(--ink-45);margin-top:3px}
+.row .where{font-size:13px;font-weight:600;line-height:1.3}
+.row .what{font-size:12.5px;color:var(--ink-70);margin-top:3px;line-height:1.35}
+.row .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center}
+.tag{
+  font-family:var(--mono);font-size:10px;color:var(--ink-45);
+  border:1px solid var(--line);border-radius:3px;padding:1px 6px;
+}
+.tag.photo{border-color:var(--blue);color:var(--blue)}
+.row .right{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.row .sla{font-family:var(--mono);font-size:10.5px;color:var(--ink-45);white-space:nowrap}
+.row .sla.late{color:var(--red)}
+.row .rate{font-family:var(--mono);font-size:11px;color:var(--amber)}
+
+/* manager */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.kpi{border-top:2px solid var(--ink);padding-top:11px}
+.kpi .n{font-family:var(--mono);font-size:27px;font-weight:600;line-height:1;letter-spacing:-.02em}
+.kpi .l{
+  font-family:var(--display);text-transform:uppercase;font-size:9.5px;
+  letter-spacing:.13em;color:var(--ink-45);margin-top:7px;line-height:1.35;
+}
+.kpi .d{font-family:var(--mono);font-size:10px;color:var(--green);margin-top:4px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.blk h5{
+  font-family:var(--display);text-transform:uppercase;letter-spacing:.14em;
+  font-size:11px;font-weight:600;color:var(--ink-45);margin:0 0 12px;
+}
+.bar{margin-bottom:10px}
+.bar .lb{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:4px}
+.bar .lb b{font-family:var(--mono);font-weight:600;font-size:12px}
+.bar .tr{height:6px;background:var(--line-2);border-radius:3px;overflow:hidden}
+.bar .fl{height:100%;background:var(--blue);border-radius:3px;transition:width .5s ease}
+.bar.alt .fl{background:var(--ink)}
+
+/* ---------- path rail ---------- */
+.rail{margin-top:32px;border-top:1px solid var(--line);padding-top:18px}
+.rail .t{
+  font-family:var(--display);text-transform:uppercase;letter-spacing:.14em;
+  font-size:11px;font-weight:600;color:var(--ink-45);margin-bottom:12px;
+}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{
+  font-size:11.5px;padding:5px 10px;border:1px solid var(--line);
+  border-radius:20px;color:var(--ink-45);background:transparent;
+  transition:all .25s;
+}
+.chip.done{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip.cur{border-color:var(--blue);color:var(--blue);font-weight:600}
+
+.hint{
+  margin-top:14px;font-size:12.5px;color:var(--blue);text-align:center;
+  font-weight:500;min-height:19px;
+}
+.foot{
+  margin-top:28px;display:flex;justify-content:space-between;align-items:center;
+  gap:16px;flex-wrap:wrap;
+}
+.foot .note{font-size:12px;color:var(--ink-45);max-width:60ch;line-height:1.45}
+.reset{
+  border:1px solid var(--ink);background:transparent;cursor:pointer;
+  padding:10px 20px;border-radius:8px;font-family:var(--display);
+  text-transform:uppercase;letter-spacing:.12em;font-size:11px;font-weight:600;
+}
+.reset:hover{background:var(--ink);color:#fff}
+
+.sig{
+  margin-top:36px;padding-top:16px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;
+  font-size:12px;color:var(--ink-45);
+}
+.sig b{color:var(--ink);font-weight:600}
+.sig a{
+  font-family:var(--mono);font-size:12px;color:var(--blue);text-decoration:none;
+  border-bottom:1px solid rgba(27,63,209,.3);
+}
+.sig a:hover{border-bottom-color:var(--blue)}
+
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+@media (max-width:900px){
+  .stage{grid-template-columns:1fr}
+  .counters{grid-template-columns:1fr 1fr}
+  .kpis{grid-template-columns:1fr 1fr}
+  .two{grid-template-columns:1fr;gap:22px}
+  .row{grid-template-columns:1fr;gap:8px}
+  .row .right{align-items:flex-start;text-align:left}
+  .wrap{padding:28px 16px 48px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Демонстрация · всё нажимается</div>
+  <h1>Заявка жителя,<br><span class="accent">которая не теряется</span></h1>
+  <p class="lede">Слева — то, что видит житель дома. Справа — то, что в этот же момент происходит у вас.
+     Начните с объявления у лифта и пройдите путь до оценки работы. Ничего настраивать не нужно.</p>
+
+  <div class="stage">
+    <section>
+      <div class="colhead"><span>Житель</span><span class="addr" id="railstep">шаг 1 из 9</span></div>
+      <div id="left"></div>
+      <div class="hint" id="hint"></div>
+    </section>
+
+    <section>
+      <div class="panel">
+        <div class="tabs">
+          <button class="tab" id="tab-d" onclick="setTab('d')">Диспетчер</button>
+          <button class="tab" id="tab-m" onclick="setTab('m')">Руководитель</button>
+        </div>
+        <div class="pane" id="right"></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="rail">
+    <div class="t">Путь жителя</div>
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <div class="foot">
+    <div class="note">Это интерактивный макет: данные вымышленные, ничего никуда не отправляется.
+      Он показывает логику работы будущей системы, а не готовый продукт.</div>
+    <button class="reset" onclick="reset()">Начать сначала</button>
+  </div>
+
+  <div class="sig">
+    <span>Макет собрал <b>Николай Барабанов</b> — боты, автоматизация, мобильные приложения</span>
+    <a href="https://botneversleeps.com" target="_blank" rel="noopener">botneversleeps.com</a>
+  </div>
+</div>
+
+<script>
+/* ============ состояние ============ */
+const STEPS = ["QR у лифта","Установка","Регистрация","Мои заявки","Категория",
+               "Описание и фото","Заявка принята","Мастер назначен","Работа выполнена","Оценка"];
+
+const initial = () => ({ step:0, os:'ios', cat:null, filled:false, photo:false,
+                         rating:0, tab:'d', flash:false, seenM:true });
+let S = initial();
+
+const MASTER = "A. Ozoliņš";
+const ADDR   = "Rīga, Brīvības iela 128";
+
+const seed = [
+  {id:"1245", addr:"Čaka iela 45",      flat:"12", cat:"Электрика", code:"ЭЛ",
+   text:"Не горит свет на лестничной клетке, 3 этаж", st:"work", master:"J. Krastiņš",
+   sla:"осталось 2 ч 10 мин", late:false, ts:"09:14", photo:true},
+  {id:"1243", addr:"Tallinas iela 7",   flat:"31", cat:"Лифт", code:"ЛФ",
+   text:"Лифт останавливается между этажами", st:"late", master:MASTER,
+   sla:"просрочено на 40 мин", late:true, ts:"08:02", photo:false},
+  {id:"1241", addr:"Brīvības iela 128", flat:"9",  cat:"Двор", code:"ДВ",
+   text:"Не вывезен мусор с контейнерной площадки", st:"new", master:null,
+   sla:"реакция до 12:00", late:false, ts:"07:48", photo:true}
+];
+
+const CATS = [["СН","Сантехника"],["ЭЛ","Электрика"],["ЛФ","Лифт"],
+              ["ОТ","Отопление"],["ДВ","Двор и уборка"],["ДР","Другое"]];
+
+function ours(){
+  if(S.step < 6) return null;
+  const st = S.step >= 8 ? "done" : S.step >= 7 ? "work" : "new";
+  return {
+    id:"1247", addr:"Brīvības iela 128", flat:"47", cat:"Сантехника", code:"СН",
+    text:"Течёт стояк в ванной, вода уходит к соседям снизу",
+    st, master: S.step>=7 ? MASTER : null,
+    sla: st==="done" ? "закрыта за 1 ч 12 мин" : st==="work" ? "осталось 3 ч 24 мин" : "реакция до 15:15",
+    late:false, ts:"11:26", photo:true, unverified:true,
+    rating: S.step>=9 ? S.rating : 0
+  };
+}
+const feed = () => { const o = ours(); return o ? [o, ...seed] : [...seed]; };
+
+/* ============ действия ============ */
+function go(n){
+  S.step = n;
+  if(n === 6 || n === 7 || n === 8 || n === 9){
+    S.flash = true;
+    if(S.tab !== 'm') S.seenM = false;
+    setTimeout(()=>{ S.flash = false; render(); }, 700);
+  }
+  render();
+}
+function setTab(t){ S.tab = t; if(t==='m') S.seenM = true; render(); }
+function setOs(o){ S.os = o; render(); }
+function pickCat(c){ S.cat = c; go(5); }
+function fill(){ S.filled = true; render(); }
+function addPhoto(){ S.photo = true; render(); }
+function rate(n){ S.rating = n; go(9); }
+function reset(){ const t = S.tab; S = initial(); S.tab = t; render(); }
+
+/* ============ QR ============ */
+function qr(){
+  const N = 21, cells = [];
+  let s = 7;
+  const rnd = () => (s = (s*1103515245 + 12345) % 2147483648) / 2147483648;
+  for(let y=0;y<N;y++) for(let x=0;x<N;x++){
+    const fnd = (a,b) => x>=a && x<a+7 && y>=b && y<b+7 &&
+                 (x===a||x===a+6||y===b||y===b+6||(x>=a+2&&x<=a+4&&y>=b+2&&y<=b+4));
+    const isF = (x<8&&y<8)||(x>N-9&&y<8)||(x<8&&y>N-9);
+    const on = isF ? (fnd(0,0)||fnd(N-7,0)||fnd(0,N-7)) : rnd() > 0.52;
+    cells.push('<i class="'+(on?'on':'')+'"></i>');
+  }
+  return '<div class="qr">'+cells.join('')+'</div>';
+}
+
+/* ============ левая колонка ============ */
+function leftHTML(){
+  if(S.step === 0){
+    return `<div class="notice-stage"><div class="notice">
+      <h3>Заявки в домоуправление — с телефона</h3>
+      <p>Наведите камеру. Приложение откроется сразу, устанавливать из магазина ничего не нужно.</p>
+      <div class="rule"></div>
+      ${qr()}
+      <div class="house">BRĪVĪBAS IELA 128 · ID 4471</div>
+      <div class="org">Namu apsaimniekošana</div>
+      <div style="margin-top:16px">
+        <button class="btn pulse" onclick="go(1)">Сканировать QR</button>
+      </div>
+    </div></div>`;
+  }
+  return `<div class="phone"><div class="screen">
+    <div class="statusbar"><span>11:26</span><span>LMT ⌁ 87%</span></div>
+    <div class="appbar">
+      <div class="brand">Мой дом</div>
+      <div class="addr">${ADDR}</div>
+    </div>
+    ${screenHTML()}
+  </div></div>`;
+}
+
+function screenHTML(){
+  const s = S.step;
+
+  if(s === 1) return `
+    <div class="body">
+      <h4>Добавьте на экран «Домой»</h4>
+      <p class="sub">Приложение весит меньше фотографии и обновляется само. Магазин приложений не нужен.</p>
+      <div class="sheet">
+        <div class="os">
+          <button class="${S.os==='ios'?'on':''}" onclick="setOs('ios')">iPhone</button>
+          <button class="${S.os==='and'?'on':''}" onclick="setOs('and')">Android</button>
+        </div>
+        <div class="how">${ S.os==='ios'
+          ? 'Нажмите «Поделиться» в нижней панели Safari, затем «На экран «Домой». Уведомления о заявках заработают после этого.'
+          : 'Chrome сам предложит «Установить приложение» — подтвердите. Значок появится рядом с остальными.' }</div>
+      </div>
+      <div class="field"><label>Дом определён по QR-коду</label>
+        <div class="val locked">${ADDR}</div></div>
+    </div>
+    <div class="footpad"><button class="btn pulse" onclick="go(2)">Добавить на экран «Домой»</button></div>`;
+
+  if(s === 2) return `
+    <div class="body">
+      <h4>Кто вы</h4>
+      <p class="sub">Три поля, один раз. Ни паролей, ни кодов из SMS.</p>
+      <div class="field"><label>Дом (из QR)</label><div class="val locked">Brīvības iela 128</div></div>
+      <div class="field"><label>Квартира</label>
+        <div class="val ${S.filled?'filled':'empty'}">${S.filled?'47':'номер квартиры'}</div></div>
+      <div class="field"><label>Имя</label>
+        <div class="val ${S.filled?'filled':'empty'}">${S.filled?'Инга Берзиня':'как к вам обращаться'}</div></div>
+      <div class="field"><label>Телефон</label>
+        <div class="val ${S.filled?'filled':'empty'}">${S.filled?'+371 26 xxx xxx':'для связи мастера'}</div></div>
+    </div>
+    <div class="footpad">${ S.filled
+      ? '<button class="btn pulse" onclick="go(3)">Продолжить</button>'
+      : '<button class="btn pulse" onclick="fill()">Заполнить</button>' }</div>`;
+
+  if(s === 3) return `
+    <div class="body">
+      <h4>Мои заявки</h4>
+      <p class="sub">Здесь будут все ваши обращения и их статус.</p>
+      <div class="empty">Пока ни одной заявки.<br>Что-то не работает — сообщите.</div>
+    </div>
+    <div class="footpad"><button class="btn pulse" onclick="go(4)">Новая заявка</button></div>`;
+
+  if(s === 4) return `
+    <div class="body">
+      <h4>Что случилось</h4>
+      <p class="sub">Выберите раздел — заявка сразу уйдёт нужному мастеру.</p>
+      <div class="tiles">${ CATS.map(([c,n]) =>
+        `<button class="tile" onclick="pickCat('${n}')">
+           <span class="code">${c}</span><span class="nm">${n}</span></button>`).join('') }</div>
+    </div>`;
+
+  if(s === 5) return `
+    <div class="body">
+      <h4>${S.cat || 'Сантехника'}</h4>
+      <p class="sub">Опишите коротко. Фото ускоряет ремонт — мастер приедет с нужной деталью.</p>
+      <div class="field"><label>Описание</label>
+        <div class="val filled" style="min-height:64px;font-size:13px">Течёт стояк в ванной, вода уходит к соседям снизу</div></div>
+      <div class="field"><label>Фото</label>
+        ${ S.photo
+          ? '<div class="photo-slot has">IMG_2287.JPG · 1,4 МБ</div>'
+          : '<button class="photo-slot" onclick="addPhoto()">+ Приложить фото</button>' }</div>
+    </div>
+    <div class="footpad"><button class="btn pulse" onclick="go(6)">Отправить заявку</button></div>`;
+
+  if(s >= 6){
+    const o = ours();
+    const push = s === 7 ? `<div class="push"><div class="t">Уведомление</div>
+        <div class="m">Заявка принята в работу. Мастер ${MASTER} приедет сегодня с 14:00 до 16:00.</div></div>`
+      : s >= 8 ? `<div class="push ok"><div class="t">Уведомление</div>
+        <div class="m">Работы выполнены. Стояк заменён, течь устранена.</div></div>` : '';
+
+    const pill = o.st === 'done' ? '<span class="pill done">Выполнена</span>'
+               : o.st === 'work' ? '<span class="pill work">В работе</span>'
+               : '<span class="pill new">Принята</span>';
+
+    const rating = s === 8 ? `
+      <div style="margin-top:18px;text-align:center">
+        <div class="sub" style="margin-bottom:0">Как оцените работу мастера?</div>
+        <div class="stars">${[1,2,3,4,5].map(n=>starBtn(n)).join('')}</div>
+      </div>` : s >= 9 ? `
+      <div style="margin-top:18px;text-align:center">
+        <div class="stars">${[1,2,3,4,5].map(n=>starBtn(n,true)).join('')}</div>
+        <div class="sub" style="margin-bottom:0">Спасибо. Оценка ушла в домоуправление.</div>
+      </div>` : '';
+
+    const next = s === 6 ? '<div class="footpad"><button class="btn pulse" onclick="go(7)">Что дальше</button></div>'
+               : s === 7 ? '<div class="footpad"><button class="btn pulse" onclick="go(8)">Что дальше</button></div>' : '';
+
+    return `<div class="body">
+      ${push}
+      <h4>Мои заявки</h4>
+      <p class="sub">Статус меняется сам, звонить и уточнять не нужно.</p>
+      <div class="rcard">
+        <div class="top"><span class="num">№ ${o.id}</span>${pill}</div>
+        <div class="mid">${o.text}</div>
+        ${ s >= 8 ? '<div style="height:76px;background:linear-gradient(135deg,#C9CEC6,#94A09A 60%,#6E7C77);display:flex;align-items:flex-end;padding:7px 10px;font-family:var(--mono);font-size:9.5px;color:#fff">фото после ремонта</div>' : '' }
+        <div class="meta"><span>${o.cat}</span><span>${ o.master ? o.master : o.sla }</span></div>
+      </div>
+      ${rating}
+    </div>${next}`;
+  }
+  return '';
+}
+
+function starBtn(n, locked){
+  const lit = S.rating >= n ? ' lit' : '';
+  const act = locked ? '' : ` onclick="rate(${n})"`;
+  return `<button class="star${lit}"${act} aria-label="Оценка ${n}">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 17.6 6.1 20.7l1.2-6.6L2.5 9.5l6.6-.9z"/></svg>
+  </button>`;
+}
+
+/* ============ правая колонка ============ */
+function rightHTML(){
+  return S.tab === 'd' ? dispatchHTML() : managerHTML();
+}
+
+function dispatchHTML(){
+  const list = feed();
+  const nw = list.filter(r=>r.st==='new').length;
+  const wk = list.filter(r=>r.st==='work').length;
+  const lt = list.filter(r=>r.st==='late').length;
+  const dn = 12 + (S.step >= 8 ? 1 : 0);
+
+  const rows = list.map(r => {
+    const isOurs = r.id === '1247';
+    const flash = isOurs && S.flash ? ' flash' : '';
+    const pill = r.st==='done' ? '<span class="pill done">Выполнена</span>'
+               : r.st==='work' ? '<span class="pill work">В работе</span>'
+               : r.st==='late' ? '<span class="pill late">Просрочена</span>'
+               : '<span class="pill new">Новая</span>';
+    const tags = [
+      `<span class="tag">${r.code}</span>`,
+      r.photo ? '<span class="tag photo">фото</span>' : '',
+      r.master ? `<span class="tag">${r.master}</span>` : '',
+      (isOurs && S.step === 6) ? '<span class="pill warn">Житель не подтверждён</span>' : ''
+    ].join('');
+    const rate = r.rating ? `<div class="rate">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>` : '';
+    return `<div class="row${flash}">
+      <div><div class="id">№ ${r.id}</div><div class="time">${r.ts}</div></div>
+      <div>
+        <div class="where">${r.addr}, кв. ${r.flat}</div>
+        <div class="what">${r.text}</div>
+        <div class="tags">${tags}</div>
+      </div>
+      <div class="right">${pill}<div class="sla ${r.late?'late':''}">${r.sla}</div>${rate}</div>
+    </div>`;
+  }).join('');
+
+  return `
+    <div class="counters">
+      <div class="counter"><div class="n">${nw}</div><div class="l">Новые</div></div>
+      <div class="counter"><div class="n">${wk}</div><div class="l">В работе</div></div>
+      <div class="counter ${lt?'alert':''}"><div class="n">${lt}</div><div class="l">Просрочено</div></div>
+      <div class="counter"><div class="n">${dn}</div><div class="l">Закрыто сегодня</div></div>
+    </div>
+    <div class="feedhead">Лента заявок · сегодня</div>
+    ${rows}`;
+}
+
+function managerHTML(){
+  const total = 312 + (S.step >= 6 ? 1 : 0);
+  const react = S.step >= 7 ? '1:38' : '1:40';
+  const score = S.step >= 9 ? '4,7' : '4,6';
+  const ontime = S.step >= 8 ? '95' : '94';
+  const brivibas = 47 + (S.step >= 6 ? 1 : 0);
+
+  const houses = [["Brīvības iela 128", brivibas],["Čaka iela 45",38],["Tallinas iela 7",29],["Lāčplēša iela 61",22]];
+  const max = Math.max(...houses.map(h=>h[1]));
+  const cats = [["Сантехника",34],["Электрика",21],["Лифт",14],["Отопление",12],["Двор и уборка",11],["Другое",8]];
+
+  return `
+    <div class="kpis">
+      <div class="kpi"><div class="n">${total}</div><div class="l">Заявок<br>за месяц</div>
+        ${S.step>=6?'<div class="d">+1 только что</div>':''}</div>
+      <div class="kpi"><div class="n">${ontime}%</div><div class="l">Закрыто<br>в срок</div>
+        ${S.step>=8?'<div class="d">+1 п.п.</div>':''}</div>
+      <div class="kpi"><div class="n">${react}</div><div class="l">Среднее время<br>реакции, ч</div>
+        ${S.step>=7?'<div class="d">−2 мин</div>':''}</div>
+      <div class="kpi"><div class="n">${score}</div><div class="l">Оценка<br>жителей</div>
+        ${S.step>=9?'<div class="d">+0,1</div>':''}</div>
+    </div>
+    <div class="two">
+      <div class="blk">
+        <h5>Дома по числу обращений</h5>
+        ${houses.map(([n,v]) => `<div class="bar">
+          <div class="lb"><span>${n}</span><b>${v}</b></div>
+          <div class="tr"><div class="fl" style="width:${Math.round(v/max*100)}%"></div></div>
+        </div>`).join('')}
+      </div>
+      <div class="blk">
+        <h5>Структура заявок</h5>
+        ${cats.map(([n,v]) => `<div class="bar alt">
+          <div class="lb"><span>${n}</span><b>${v}%</b></div>
+          <div class="tr"><div class="fl" style="width:${v*2.6}%"></div></div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+}
+
+/* ============ подсказки и рендер ============ */
+const HINTS = [
+  "Нажмите «Сканировать QR» — так житель начинает у лифта",
+  "Выберите платформу и добавьте приложение на экран",
+  "Нажмите «Заполнить» — это единственная регистрация",
+  "Создайте первую заявку",
+  "Выберите раздел — от него зависит, какому мастеру уйдёт заявка",
+  "Приложите фото и отправьте заявку",
+  "Заявка уже справа. Посмотрите вкладку «Руководитель»",
+  "Диспетчер назначил мастера — статус у жителя изменился сам",
+  "Поставьте оценку работе",
+  "Путь пройден. Переключите вкладки справа и сравните цифры"
+];
+
+function render(){
+  document.getElementById('left').innerHTML  = leftHTML();
+  document.getElementById('right').innerHTML = rightHTML();
+  document.getElementById('hint').textContent = HINTS[S.step] || '';
+  document.getElementById('railstep').textContent = 'шаг ' + (S.step+1) + ' из ' + STEPS.length;
+
+  document.getElementById('chips').innerHTML = STEPS.map((s,i) =>
+    `<span class="chip ${i < S.step ? 'done' : i === S.step ? 'cur' : ''}">${s}</span>`).join('');
+
+  document.getElementById('tab-d').className = 'tab' + (S.tab==='d' ? ' on' : '');
+  document.getElementById('tab-m').innerHTML = 'Руководитель' + (!S.seenM ? '<span class="dot"></span>' : '');
+  document.getElementById('tab-m').className = 'tab' + (S.tab==='m' ? ' on' : '');
+}
+render();
+</script>
+</body>
+</html>
