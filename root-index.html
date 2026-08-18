@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Николай Барабанов — интерактивные макеты продуктов</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Боты, автоматизация и мобильные приложения. Здесь живут интерактивные макеты продуктов.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://demo.botneversleeps.com/">
+<meta property="og:title" content="Николай Барабанов — интерактивные макеты продуктов">
+<meta property="og:description" content="Боты, автоматизация и мобильные приложения.">
+<meta property="og:locale" content="ru_RU">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%231B3FD1'/><rect x='18' y='14' width='28' height='36' rx='4' fill='%23fff'/><rect x='24' y='22' width='16' height='3' fill='%231B3FD1'/><rect x='24' y='30' width='16' height='3' fill='%231B3FD1'/><rect x='24' y='38' width='10' height='3' fill='%231B3FD1'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E7E7E2; --ink:#14161A; --ink-70:#42474E; --ink-45:#767B82;
+  --line:#CFCEC7; --blue:#1B3FD1;
+  --display:"Oswald","Arial Narrow",sans-serif;
+  --body:"Golos Text","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);font-family:var(--body);
+  min-height:100vh;display:flex;align-items:center;
+  -webkit-font-smoothing:antialiased;
+}
+.card{max-width:660px;margin:0 auto;padding:56px 28px}
+
+.eyebrow{
+  font-family:var(--display);font-weight:500;font-size:12px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--ink-45);
+  display:flex;align-items:center;gap:12px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+
+h1{
+  font-family:var(--display);font-weight:600;text-transform:uppercase;
+  font-size:clamp(32px,7vw,52px);line-height:1;margin:20px 0 0;
+}
+.role{
+  margin-top:14px;font-size:17px;color:var(--ink-70);line-height:1.45;
+}
+.role b{color:var(--blue);font-weight:600}
+
+.about{
+  margin-top:30px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:15px;color:var(--ink-70);line-height:1.6;
+}
+
+.contacts{margin-top:30px;display:flex;flex-direction:column;gap:10px}
+.contacts a{
+  font-family:var(--mono);font-size:14px;color:var(--ink);
+  text-decoration:none;display:inline-flex;align-items:baseline;gap:12px;width:fit-content;
+}
+.contacts a .k{
+  font-family:var(--display);text-transform:uppercase;font-size:10px;
+  letter-spacing:.16em;color:var(--ink-45);min-width:74px;
+}
+.contacts a .v{border-bottom:1px solid rgba(27,63,209,.35);color:var(--blue)}
+.contacts a:hover .v{border-bottom-color:var(--blue)}
+
+.foot{
+  margin-top:40px;padding-top:18px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink-45);line-height:1.5;
+}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="eyebrow">Рига · Латвия</div>
+
+  <h1>Николай<br>Барабанов</h1>
+
+  <p class="role">Telegram-боты, <b>автоматизация процессов</b> и мобильные приложения.<br>
+     Работаю один, от идеи до опубликованного продукта.</p>
+
+  <div class="about">
+    По этому адресу живут интерактивные макеты — рабочие прототипы продуктов,
+    которые можно пройти руками до того, как написана первая строка боевого кода.
+    Каждый макет открывается по отдельной ссылке, которую я отправляю напрямую.
+    Общего списка здесь нет и не будет: макет клиента видит только клиент.
+  </div>
+
+  <!-- ↓↓↓ ЗАМЕНИТЕ два адреса ниже на свои ↓↓↓ -->
+  <div class="contacts">
+    <a href="mailto:ВАШ_EMAIL"><span class="k">Почта</span><span class="v">ВАШ_EMAIL</span></a>
+    <a href="https://t.me/ВАШ_TELEGRAM" target="_blank" rel="noopener"><span class="k">Telegram</span><span class="v">@ВАШ_TELEGRAM</span></a>
+    <a href="https://botneversleeps.com" target="_blank" rel="noopener"><span class="k">Сайт</span><span class="v">botneversleeps.com</span></a>
+  </div>
+  <!-- ↑↑↑ ЗАМЕНИТЕ два адреса выше на свои ↑↑↑ -->
+
+  <div class="foot">
+    Макеты по этому адресу — демонстрация логики работы, а не готовые продукты.
+    Данные в них вымышленные.
+  </div>
+
+</div>
+</body>
+</html>
