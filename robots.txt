@@ -1,2 +1,4 @@
 User-agent: *
-Disallow: /
+Disallow: /c/
+
+Sitemap: https://demo.botneversleeps.com/sitemap.xml
