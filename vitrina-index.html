@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Интерактивные макеты — Николай Барабанов</title>
+<meta name="description" content="Кликабельные прототипы продуктов: заказчик проходит путь пользователя руками до того, как написана первая строка боевого кода.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://demo.botneversleeps.com/">
+<meta property="og:title" content="Интерактивные макеты продуктов">
+<meta property="og:description" content="Кликабельные прототипы: клиент проходит путь пользователя руками до начала разработки.">
+<meta property="og:image" content="https://demo.botneversleeps.com/uk/og.png">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%231B3FD1'/><rect x='18' y='14' width='28' height='36' rx='4' fill='%23fff'/><rect x='24' y='22' width='16' height='3' fill='%231B3FD1'/><rect x='24' y='30' width='16' height='3' fill='%231B3FD1'/><rect x='24' y='38' width='10' height='3' fill='%231B3FD1'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E7E7E2; --paper-2:#DEDED8; --card:#FFFFFF;
+  --ink:#14161A; --ink-70:#42474E; --ink-45:#767B82;
+  --line:#CFCEC7; --line-2:#E4E3DD; --blue:#1B3FD1; --blue-soft:#E8EBFB;
+  --display:"Oswald","Arial Narrow",sans-serif;
+  --body:"Golos Text","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);font-family:var(--body);
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:56px 24px 72px}
+
+.eyebrow{
+  font-family:var(--display);font-weight:500;font-size:12px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--ink-45);
+  display:flex;align-items:center;gap:12px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+
+h1{
+  font-family:var(--display);font-weight:600;text-transform:uppercase;
+  font-size:clamp(34px,6.4vw,62px);line-height:.99;margin:20px 0 0;
+}
+h1 .accent{color:var(--blue)}
+.lede{max-width:60ch;margin:20px 0 0;font-size:17px;color:var(--ink-70)}
+
+/* метод */
+.method{
+  margin-top:44px;padding-top:26px;border-top:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(3,1fr);gap:30px;
+}
+.m-item .n{
+  font-family:var(--mono);font-size:11px;font-weight:600;color:var(--blue);
+  letter-spacing:.04em;
+}
+.m-item h3{
+  font-family:var(--display);text-transform:uppercase;font-size:14px;
+  font-weight:600;letter-spacing:.04em;margin:8px 0 6px;
+}
+.m-item p{margin:0;font-size:13.5px;color:var(--ink-70);line-height:1.5}
+
+/* секция */
+.sechead{
+  margin-top:56px;padding-bottom:12px;border-bottom:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+}
+.sechead h2{
+  font-family:var(--display);text-transform:uppercase;font-size:13px;
+  font-weight:600;letter-spacing:.18em;color:var(--ink-45);margin:0;
+}
+.sechead .count{font-family:var(--mono);font-size:11px;color:var(--ink-45)}
+
+/* кейс */
+.case{
+  display:grid;grid-template-columns:400px 1fr;gap:34px;
+  padding:30px 0;border-bottom:1px solid var(--line-2);align-items:start;
+}
+.case .shot{
+  display:block;border:1px solid var(--line);border-radius:8px;overflow:hidden;
+  background:var(--paper-2);line-height:0;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.case .shot:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(20,22,26,.14)}
+.case .shot img{width:100%;height:auto;display:block}
+
+.case .num{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--blue)}
+.case .field{
+  font-family:var(--display);text-transform:uppercase;font-size:10.5px;
+  letter-spacing:.16em;color:var(--ink-45);margin-top:10px;
+}
+.case h3{
+  font-family:var(--display);text-transform:uppercase;font-weight:600;
+  font-size:clamp(21px,2.6vw,28px);line-height:1.08;margin:8px 0 0;
+}
+.case p{margin:14px 0 0;color:var(--ink-70);font-size:14.5px;max-width:52ch}
+.case .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.tag{
+  font-family:var(--mono);font-size:10.5px;color:var(--ink-45);
+  border:1px solid var(--line);border-radius:3px;padding:2px 7px;
+}
+.open{
+  display:inline-block;margin-top:20px;background:var(--blue);color:#fff;
+  text-decoration:none;padding:11px 22px;border-radius:8px;
+  font-family:var(--display);text-transform:uppercase;letter-spacing:.11em;
+  font-size:12px;font-weight:600;transition:filter .12s;
+}
+.open:hover{filter:brightness(1.12)}
+
+/* заглушка под будущие */
+.soon{
+  padding:26px 0 4px;color:var(--ink-45);font-size:13.5px;
+  display:flex;gap:14px;align-items:baseline;
+}
+.soon .num{font-family:var(--mono);font-size:12px;color:var(--line)}
+
+/* процесс */
+.steps{
+  margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;
+}
+.step .n{
+  font-family:var(--mono);font-size:11px;font-weight:600;color:var(--blue);
+}
+.step h4{
+  font-family:var(--display);text-transform:uppercase;font-size:13.5px;
+  font-weight:600;letter-spacing:.05em;margin:8px 0 6px;
+}
+.step p{margin:0;font-size:13.5px;color:var(--ink-70);line-height:1.5}
+
+.trust{
+  margin-top:34px;padding:18px 20px;background:var(--blue-soft);
+  border-radius:8px;font-size:13.5px;color:var(--ink-70);line-height:1.55;
+}
+.trust b{color:var(--ink);font-weight:600}
+
+/* контакты */
+.contacts{margin-top:26px;display:flex;flex-direction:column;gap:10px}
+.contacts a{
+  font-family:var(--mono);font-size:14px;color:var(--ink);text-decoration:none;
+  display:inline-flex;align-items:baseline;gap:14px;width:fit-content;
+}
+.contacts a .k{
+  font-family:var(--display);text-transform:uppercase;font-size:10px;
+  letter-spacing:.16em;color:var(--ink-45);min-width:78px;
+}
+.contacts a .v{color:var(--blue);border-bottom:1px solid rgba(27,63,209,.32)}
+.contacts a:hover .v{border-bottom-color:var(--blue)}
+
+.foot{
+  margin-top:44px;padding-top:18px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink-45);line-height:1.55;
+}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+
+@media (max-width:820px){
+  .method,.steps{grid-template-columns:1fr;gap:22px}
+  .case{grid-template-columns:1fr;gap:20px}
+  .wrap{padding:36px 18px 56px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Николай Барабанов · Рига</div>
+
+  <h1>Продукт можно потрогать<br><span class="accent">до того, как он написан</span></h1>
+
+  <p class="lede">Я собираю интерактивные макеты — рабочие прототипы, которые открываются
+     по ссылке и нажимаются как настоящее приложение. Заказчик проходит путь пользователя
+     руками и видит, что получит, ещё до начала разработки.</p>
+
+  <div class="method">
+    <div class="m-item">
+      <div class="n">01</div>
+      <h3>Один-два дня</h3>
+      <p>Не недели. Макет стоит времени одного вечера, а не бюджета проекта.</p>
+    </div>
+    <div class="m-item">
+      <div class="n">02</div>
+      <h3>Всё нажимается</h3>
+      <p>Это не картинки и не презентация. Сценарий проходится целиком, от первого экрана до последнего.</p>
+    </div>
+    <div class="m-item">
+      <div class="n">03</div>
+      <h3>Ошибки ловятся рано</h3>
+      <p>Неверное предположение видно на макете, а не через полгода разработки.</p>
+    </div>
+  </div>
+
+  <div class="sechead">
+    <h2>Стенды</h2>
+    <span class="count">01</span>
+  </div>
+
+  <div class="case">
+    <a class="shot" href="/uk/">
+      <img src="/uk/og.png" alt="Экран заявки жителя и панель диспетчера" loading="lazy">
+    </a>
+    <div>
+      <div class="num">01</div>
+      <div class="field">Управление жилой недвижимостью</div>
+      <h3>Как упорядочить поток обращений от 10 000 жителей</h3>
+      <p>Житель сканирует код в подъезде и подаёт заявку с телефона. Диспетчер видит её
+         сразу — с адресом, квартирой, категорией и фотографией. Руководитель видит,
+         сколько закрыто в срок и по каким домам обращений больше всего.
+         Стенд проходится целиком: от объявления у лифта до оценки работы мастера.</p>
+      <div class="tags">
+        <span class="tag">PWA</span>
+        <span class="tag">приём заявок</span>
+        <span class="tag">диспетчерская</span>
+        <span class="tag">аналитика</span>
+      </div>
+      <a class="open" href="/uk/">Открыть стенд</a>
+    </div>
+  </div>
+
+  <div class="soon">
+    <span class="num">02</span>
+    <span>Следующий стенд в работе.</span>
+  </div>
+
+  <div class="sechead">
+    <h2>Как это работает</h2>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="n">01</div>
+      <h4>Разговор о задаче</h4>
+      <p>Не о технологиях и не о сроках. Сначала нужно понять, что именно ломается сегодня.</p>
+    </div>
+    <div class="step">
+      <div class="n">02</div>
+      <h4>Стенд</h4>
+      <p>Через день-два вы получаете ссылку и проходите сценарий сами. Правки на этом этапе почти ничего не стоят.</p>
+    </div>
+    <div class="step">
+      <div class="n">03</div>
+      <h4>Разработка по частям</h4>
+      <p>Начинается, только если стенд подтвердил, что решение верное. И идёт этапами, а не одним куском.</p>
+    </div>
+  </div>
+
+  <div class="trust">
+    <b>Стенды, сделанные под конкретного заказчика, здесь не публикуются.</b>
+    Они доступны только по прямой ссылке, которую я отправляю лично, и закрыты от поисковых систем.
+    В этом разделе — обезличенные работы: отрасль указана, название компании — нет.
+  </div>
+
+  <div class="sechead">
+    <h2>Связаться</h2>
+  </div>
+
+  <!-- ↓↓↓ ЗАМЕНИТЕ два адреса ниже на свои ↓↓↓ -->
+  <div class="contacts">
+    <a href="mailto:ВАШ_EMAIL"><span class="k">Почта</span><span class="v">ВАШ_EMAIL</span></a>
+    <a href="https://t.me/ВАШ_TELEGRAM" target="_blank" rel="noopener"><span class="k">Telegram</span><span class="v">@ВАШ_TELEGRAM</span></a>
+    <a href="https://botneversleeps.com" target="_blank" rel="noopener"><span class="k">Сайт</span><span class="v">botneversleeps.com</span></a>
+  </div>
+  <!-- ↑↑↑ ЗАМЕНИТЕ два адреса выше на свои ↑↑↑ -->
+
+  <div class="foot">
+    Telegram-боты, автоматизация процессов и мобильные приложения. Работаю один,
+    от первого разговора до опубликованного продукта.<br>
+    Макеты на этом домене — демонстрация логики работы, а не готовые продукты. Данные в них вымышленные.
+  </div>
+
+</div>
+</body>
+</html>
