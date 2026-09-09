@@ -70,6 +70,9 @@
   .tabs{display:flex;gap:4px;background:#e9e1cb;border-radius:8px;padding:3px;margin-bottom:2px;}
   .tab{flex:1;text-align:center;font-family:'Oswald',sans-serif;font-size:11.5px;padding:7px;border-radius:6px;color:var(--steel-800);cursor:pointer;background:transparent;border:none;}
   .tab.active{background:var(--ink);color:var(--paper);}
+  .tabs.dark{background:var(--steel-900);}
+  .tabs.dark .tab{color:var(--steel-500);}
+  .tabs.dark .tab.active{background:var(--steel-700);color:var(--paper);}
   .weekbars{display:flex;gap:6px;align-items:flex-end;height:54px;margin-top:4px;}
   .weekbars div{flex:1;background:var(--steel-500);border-radius:3px 3px 0 0;opacity:.4;}
   .weekbars div.today{background:var(--sage);opacity:1;}
@@ -86,12 +89,23 @@
   .tag.staff{color:var(--sage);border-color:var(--sage);}
   .tag.temp{color:var(--amber);border-color:var(--amber);}
   .manual-btn{font-family:'IBM Plex Mono',monospace;font-size:10.5px;background:transparent;border:1px dashed var(--amber);color:#a5641c;padding:5px 8px;border-radius:6px;cursor:pointer;}
+
+  .live-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .live-badge{display:flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--sage);}
+  .live-dot{width:7px;height:7px;border-radius:50%;background:var(--sage);animation:pulse 1.6s infinite;}
+  @keyframes pulse{0%{opacity:1;}50%{opacity:.25;}100%{opacity:1;}}
   .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;}
-  .stat{background:var(--steel-900);border-radius:10px;padding:14px;}
+  .stat{background:var(--steel-900);border-radius:10px;padding:14px;transition:background .3s;}
+  .stat.flash{background:#3a3320;}
   .stat .num{font-family:'Oswald',sans-serif;font-size:25px;color:var(--paper);}
   .stat .lab{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--steel-500);margin-top:3px;}
   .sync-note{margin-top:14px;font-size:11.5px;color:var(--steel-500);border-top:1px solid var(--steel-700);padding-top:12px;line-height:1.55;}
   .sync-note b{color:var(--sage);}
+  .hist-row{display:flex;justify-content:space-between;align-items:center;padding:9px 4px;border-bottom:1px solid var(--steel-700);font-size:12.5px;}
+  .hist-row:last-child{border-bottom:none;}
+  .hist-day{font-family:'Oswald',sans-serif;color:var(--paper);width:40px;}
+  .hist-mid{color:var(--steel-500);font-family:'IBM Plex Mono',monospace;font-size:11px;flex:1;text-align:center;}
+  .hist-hours{font-family:'IBM Plex Mono',monospace;color:var(--paper);width:70px;text-align:right;}
 
   .caption{font-size:13px;color:var(--steel-500);margin:14px 0 0;line-height:1.5;max-width:70ch;}
   .disclaimer{margin-top:30px;font-size:12px;color:var(--steel-500);border-top:1px solid var(--steel-700);padding-top:16px;line-height:1.6;}
@@ -120,7 +134,7 @@
       <div class="phone"><div class="phone-screen" id="leadScreen"></div></div>
     </div>
     <div>
-      <div class="col-head"><b>Руководитель</b><span id="ownerClock"></span></div>
+      <div class="col-head"><b>Руководитель</b><span>панель</span></div>
       <div class="board" id="ownerScreen"></div>
     </div>
   </div>
@@ -139,6 +153,16 @@
 const HOURS = { maris:8.97, dzintra:8.5, baiba:4.5, edgars:8.75 };
 function fmt(h){ return `${Math.floor(h)}ч ${Math.round((h%1)*60)}м`; }
 
+const HISTORY = [
+  { day:'Пн', hours:62.5, staff:5, temp:1 },
+  { day:'Вт', hours:58.0, staff:4, temp:2 },
+  { day:'Ср', hours:65.25, staff:5, temp:0 },
+  { day:'Чт', hours:60.75, staff:4, temp:1 },
+  { day:'Пт', hours:71.5, staff:6, temp:3 },
+  { day:'Сб', hours:40.0, staff:3, temp:2 },
+  { day:'Вс', hours:0, staff:0, temp:0 },
+];
+
 const defaultState = () => ({
   choice: null,          // null | 'install' | 'onetime'
   step: 'choice',        // choice -> form -> done   |   choice -> onetime_form -> onetime_done
@@ -148,11 +172,13 @@ const defaultState = () => ({
   edgars: 'idle',        // idle -> manual_in
   types: { maris:'staff', dzintra:'staff', baiba:'temp', edgars:'staff' },
   leadTab: 'shift',
-  empTab: 'today'
+  empTab: 'today',
+  ownerTab: 'today'
 });
 let state = defaultState();
+let prevStats = null;
 
-function reset(){ state = defaultState(); render(); }
+function reset(){ state = defaultState(); prevStats = null; render(); }
 
 function act(action){
   if(action==='choose-install'){ state.choice='install'; state.step='form'; }
@@ -168,6 +194,8 @@ function act(action){
   else if(action==='dzintra-out'){ state.dzintra='out'; }
   else if(action==='lead-tab-self'){ state.leadTab='self'; }
   else if(action==='lead-tab-shift'){ state.leadTab='shift'; }
+  else if(action==='owner-tab-today'){ state.ownerTab='today'; }
+  else if(action==='owner-tab-history'){ state.ownerTab='history'; }
   else if(action==='edgars-manual'){ state.edgars='manual_in'; }
   else if(action.startsWith('toggle:')){
     const who = action.split(':')[1];
@@ -211,13 +239,13 @@ function renderEmployee(){
       <div class="phone-topbar"><span class="brand">Restoranix</span><span>08:00</span></div>
       <div style="margin-top:20px;">
         <div class="name-line">Отмечаем ваш приход</div>
-        <p class="helper" style="margin-top:8px;">Телефон сканирует QR впервые — система не узнаёт устройство. Как продолжить?</p>
+        <p class="helper" style="margin-top:8px;">QR ведёт на страницу в браузере — устанавливать ничего не нужно. Система пока не узнаёт вас. Как продолжить?</p>
       </div>
       <div class="choice-stack">
-        <button class="btn btn-dark btn-full" data-action="choose-install">Установить приложение</button>
-        <button class="btn btn-outline btn-full" data-action="choose-onetime">Разовая отметка</button>
+        <button class="btn btn-dark btn-full" data-action="choose-install">Зарегистрироваться</button>
+        <button class="btn btn-outline btn-full" data-action="choose-onetime">Отметиться разово</button>
       </div>
-      <p class="helper">«Установить» — если вы работаете регулярно. «Разово» — если вы здесь не на постоянной основе.</p>`;
+      <p class="helper">«Зарегистрироваться» — если вы работаете регулярно. «Разово» — если вы здесь не на постоянной основе.</p>`;
     return;
   }
 
@@ -230,7 +258,7 @@ function renderEmployee(){
         <div class="field-lab">ФИО</div><div class="field">Марис Кливе</div>
         <div class="field-lab">Телефон</div><div class="field">+371 2• •• •• 41</div>
         <div class="field-lab">Фото для идентификации</div><div class="field">📷 фото загружено</div>
-        <button class="btn btn-dark btn-full push" data-action="onb-finish">Завершить онбординг</button>`;
+        <button class="btn btn-dark btn-full push" data-action="onb-finish">Завершить регистрацию</button>`;
       return;
     }
     if(state.maris==='idle'){
@@ -347,8 +375,7 @@ function edgarsRow(){
     <span class="tag ${state.types.edgars}" data-action="toggle:edgars">${state.types.edgars==='staff'?'штатный':'внештатный'}</span></div>`;
 }
 
-function renderOwner(){
-  document.getElementById('ownerClock').textContent = '13:40 · сегодня';
+function computeTodayStats(){
   const people = ['maris','dzintra','baiba','edgars'];
   const statusOf = { maris:state.maris, dzintra:state.dzintra, baiba:state.baiba, edgars: state.edgars==='manual_in'?'in':'idle' };
   const active = people.filter(k=>statusOf[k]==='in').length;
@@ -360,14 +387,38 @@ function renderOwner(){
   if(state.maris==='out') closedHours+=HOURS.maris;
   if(state.dzintra==='out') closedHours+=HOURS.dzintra;
   if(state.baiba==='out') closedHours+=HOURS.baiba;
-  document.getElementById('ownerScreen').innerHTML = `
+  return { active, closed, staffActive, tempActive, closedHours };
+}
+
+function renderOwner(){
+  const el = document.getElementById('ownerScreen');
+  const tabs = `<div class="tabs dark">
+      <button class="tab ${state.ownerTab==='today'?'active':''}" data-action="owner-tab-today">Сегодня</button>
+      <button class="tab ${state.ownerTab==='history'?'active':''}" data-action="owner-tab-history">История · 7 дней</button>
+    </div>`;
+
+  if(state.ownerTab==='history'){
+    const rows = HISTORY.map(h=>`<div class="hist-row"><span class="hist-day">${h.day}</span><span class="hist-mid">${h.staff} штат / ${h.temp} врем.</span><span class="hist-hours">${fmt(h.hours)}</span></div>`).join('');
+    el.innerHTML = `${tabs}<p class="helper" style="margin:2px 0 8px;">Прошедшие дни зафиксированы и не меняются.</p>${rows}
+      <div class="sync-note">Данные хранятся в базе и доступны для выгрузки в любой момент.</div>`;
+    return;
+  }
+
+  const s = computeTodayStats();
+  const changed = key => prevStats && prevStats[key] !== s[key];
+  el.innerHTML = `${tabs}
+    <div class="live-row">
+      <span class="live-badge"><span class="live-dot"></span>LIVE · обновляется само</span>
+      <span class="helper">13:40 · сегодня</span>
+    </div>
     <div class="stat-grid">
-      <div class="stat"><div class="num">${active}</div><div class="lab">сейчас на смене</div></div>
-      <div class="stat"><div class="num">${closed}</div><div class="lab">смен закрыто</div></div>
-      <div class="stat"><div class="num">${staffActive} / ${tempActive}</div><div class="lab">штатные / внештатные</div></div>
-      <div class="stat"><div class="num">${fmt(closedHours)}</div><div class="lab">часы, закрытые смены</div></div>
+      <div class="stat ${changed('active')?'flash':''}"><div class="num">${s.active}</div><div class="lab">сейчас на смене</div></div>
+      <div class="stat ${changed('closed')?'flash':''}"><div class="num">${s.closed}</div><div class="lab">смен закрыто</div></div>
+      <div class="stat ${changed('staffActive')||changed('tempActive')?'flash':''}"><div class="num">${s.staffActive} / ${s.tempActive}</div><div class="lab">штатные / внештатные</div></div>
+      <div class="stat ${changed('closedHours')?'flash':''}"><div class="num">${fmt(s.closedHours)}</div><div class="lab">часы, закрытые смены</div></div>
     </div>
     <div class="sync-note"><b>Автоматически:</b> данные штатных сотрудников синхронизируются с Moneo сразу после закрытия смены, без ручных действий бригадира или руководителя.</div>`;
+  prevStats = s;
 }
 
 function render(){
