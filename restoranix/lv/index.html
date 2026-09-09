@@ -333,21 +333,21 @@ function renderLead(){
     return;
   }
   const rows = [];
-  rows.push(personRow('maris','Māris K.', state.maris, '08:03', state.choice==='install'));
-  rows.push(personRow('dzintra','Dzintra O. (jūs)', state.dzintra, '07:55', true));
-  rows.push(personRow('baiba','Baiba R.', state.baiba, '08:10', state.choice==='onetime'));
-  rows.push(edgarsRow());
+  if(state.maris!=='idle') rows.push(personRow('maris','Māris K.', state.maris, '08:03'));
+  if(state.dzintra!=='idle') rows.push(personRow('dzintra','Dzintra O. (jūs)', state.dzintra, '07:55'));
+  if(state.baiba!=='idle') rows.push(personRow('baiba','Baiba R.', state.baiba, '08:10'));
+  if(state.edgars==='manual_in') rows.push(edgarsRow());
+  const empty = rows.length===0 ? '<p class="helper">Pagaidām šajā punktā neviens nav atzīmējies.</p>' : '';
+  const addManual = state.edgars==='idle'
+    ? '<button class="manual-btn" data-action="edgars-manual">+ Atzīmēt darbinieku manuāli (uz vietas, bet nav skenējis)</button>'
+    : '';
   el.innerHTML = `<div class="phone-topbar"><span class="brand">Restoranix</span><span>13:40</span></div>${tabs}
     <div class="phone-label">Maiņa · cehs Nr.1</div>
-    <p class="helper" style="margin:-4px 0 2px;">Atzīme pastāvīgais/ārštata — spiediet, lai labotu manuāli.</p>
-    ${rows.join('')}`;
+    <p class="helper" style="margin:-4px 0 2px;">Rindas parādās pašas, notiekot reģistrācijai. Atzīme pastāvīgais/ārštata — spiediet, lai labotu.</p>
+    ${rows.join('')}${empty}${addManual}`;
 }
 
-function personRow(key, name, status, inTime, exists){
-  if(!exists){
-    return `<div class="ticket-row" style="opacity:.45;">
-      <span class="dot"></span><span class="t-name">${name}<small>vēl nav atzīmējies</small></span></div>`;
-  }
+function personRow(key, name, status, inTime){
   const label = status==='in' ? `uz vietas kopš ${inTime}` : (status==='out' ? 'maiņa slēgta' : 'nav atzīmējies');
   const type = state.types[key];
   return `<div class="ticket-row ${status==='in'?'on':''}" style="border-left-color:${status==='in'?'var(--sage)':'#cabf9f'}">
@@ -357,11 +357,6 @@ function personRow(key, name, status, inTime, exists){
   </div>`;
 }
 function edgarsRow(){
-  if(state.edgars==='idle'){
-    return `<div class="ticket-row" style="border-left-color:var(--rust)">
-      <span class="dot" style="background:var(--rust)"></span><span class="t-name">Edgars P.<small>uz vietas, aizmirsis atzīmēties</small></span>
-      <button class="manual-btn" data-action="edgars-manual">Atzīmēt manuāli</button></div>`;
-  }
   return `<div class="ticket-row" style="border-left-color:var(--amber)">
     <span class="dot" style="background:var(--amber)"></span><span class="t-name">Edgars P.<small style="color:var(--amber)">ierašanās 08:15 · labojis brigadieris</small></span>
     <span class="tag ${state.types.edgars}" data-action="toggle:edgars">${state.types.edgars==='staff'?'pastāvīgais':'ārštata'}</span></div>`;
