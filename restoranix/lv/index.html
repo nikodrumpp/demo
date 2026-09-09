@@ -183,7 +183,7 @@ function reset(){ state = defaultState(); prevStats = null; render(); }
 function act(action){
   if(action==='choose-install'){ state.choice='install'; state.step='form'; }
   else if(action==='choose-onetime'){ state.choice='onetime'; state.step='onetime_form'; }
-  else if(action==='onb-finish'){ state.step='done'; }
+  else if(action==='onb-finish'){ state.step='done'; state.maris='in'; }
   else if(action==='onetime-finish'){ state.baiba='in'; state.step='onetime_done'; }
   else if(action==='onetime-out'){ state.baiba='out'; }
   else if(action==='maris-in'){ state.maris='in'; }
@@ -261,22 +261,14 @@ function renderEmployee(){
         <button class="btn btn-dark btn-full push" data-action="onb-finish">Pabeigt reģistrāciju</button>`;
       return;
     }
-    if(state.maris==='idle'){
-      el.innerHTML = `
-        <div class="phone-topbar"><span class="brand">Restoranix</span><span>08:03</span></div>
-        <div class="phone-label">Profils izveidots ✓ statuss: pastāvīgais</div>
-        <div class="qr"></div>
-        <button class="btn btn-dark btn-full" data-action="maris-in">Skenēt QR — ierašanās</button>`;
-      return;
-    }
     const tabs = `<div class="tabs">
         <button class="tab ${state.empTab==='today'?'active':''}" data-action="emp-tab-today">Šodien</button>
         <button class="tab ${state.empTab==='stats'?'active':''}" data-action="emp-tab-stats">Statistika</button>
       </div>`;
     if(state.empTab==='today'){
       if(state.maris==='in'){
-        el.innerHTML = `<div class="phone-topbar"><span class="brand">Restoranix</span><span>13:40</span></div>${tabs}
-          <div class="receipt"><div class="status-in">✓ Jūs esat cehā</div>ierašanās: 08:03<br>tagad: 13:40<br>nostrādāts: 5h 37m</div>
+        el.innerHTML = `<div class="phone-topbar"><span class="brand">Restoranix</span><span>08:03</span></div>${tabs}
+          <div class="receipt"><div class="status-in">✓ Profils izveidots, ierašanās fiksēta automātiski</div>statuss: pastāvīgais<br>ierašanās: 08:03</div>
           <button class="btn btn-dark btn-full" data-action="maris-out">Skenēt QR — aiziešana</button>`;
       } else {
         el.innerHTML = `<div class="phone-topbar"><span class="brand">Restoranix</span><span>17:01</span></div>${tabs}
