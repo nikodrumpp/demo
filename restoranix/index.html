@@ -333,21 +333,21 @@ function renderLead(){
     return;
   }
   const rows = [];
-  rows.push(personRow('maris','Марис К.', state.maris, '08:03', state.choice==='install'));
-  rows.push(personRow('dzintra','Дзинтра О. (вы)', state.dzintra, '07:55', true));
-  rows.push(personRow('baiba','Байба Р.', state.baiba, '08:10', state.choice==='onetime'));
-  rows.push(edgarsRow());
+  if(state.maris!=='idle') rows.push(personRow('maris','Марис К.', state.maris, '08:03'));
+  if(state.dzintra!=='idle') rows.push(personRow('dzintra','Дзинтра О. (вы)', state.dzintra, '07:55'));
+  if(state.baiba!=='idle') rows.push(personRow('baiba','Байба Р.', state.baiba, '08:10'));
+  if(state.edgars==='manual_in') rows.push(edgarsRow());
+  const empty = rows.length===0 ? '<p class="helper">Пока никто не отметился на этой точке.</p>' : '';
+  const addManual = state.edgars==='idle'
+    ? '<button class="manual-btn" data-action="edgars-manual">+ Отметить сотрудника вручную (на месте, но не сканировал)</button>'
+    : '';
   el.innerHTML = `<div class="phone-topbar"><span class="brand">Restoranix</span><span>13:40</span></div>${tabs}
     <div class="phone-label">Смена · цех №1</div>
-    <p class="helper" style="margin:-4px 0 2px;">Метка штатный/внештатный — нажмите, чтобы поправить вручную.</p>
-    ${rows.join('')}`;
+    <p class="helper" style="margin:-4px 0 2px;">Строки появляются сами по мере регистрации. Метка штатный/внештатный — нажмите, чтобы поправить.</p>
+    ${rows.join('')}${empty}${addManual}`;
 }
 
-function personRow(key, name, status, inTime, exists){
-  if(!exists){
-    return `<div class="ticket-row" style="opacity:.45;">
-      <span class="dot"></span><span class="t-name">${name}<small>ещё не отмечался</small></span></div>`;
-  }
+function personRow(key, name, status, inTime){
   const label = status==='in' ? `на месте с ${inTime}` : (status==='out' ? 'смена закрыта' : 'не отмечен');
   const type = state.types[key];
   return `<div class="ticket-row ${status==='in'?'on':''}" style="border-left-color:${status==='in'?'var(--sage)':'#cabf9f'}">
@@ -357,11 +357,6 @@ function personRow(key, name, status, inTime, exists){
   </div>`;
 }
 function edgarsRow(){
-  if(state.edgars==='idle'){
-    return `<div class="ticket-row" style="border-left-color:var(--rust)">
-      <span class="dot" style="background:var(--rust)"></span><span class="t-name">Эдгар П.<small>на месте, забыл отметиться</small></span>
-      <button class="manual-btn" data-action="edgars-manual">Отметить вручную</button></div>`;
-  }
   return `<div class="ticket-row" style="border-left-color:var(--amber)">
     <span class="dot" style="background:var(--amber)"></span><span class="t-name">Эдгар П.<small style="color:var(--amber)">вход 08:15 · скорректировано бригадиром</small></span>
     <span class="tag ${state.types.edgars}" data-action="toggle:edgars">${state.types.edgars==='staff'?'штатный':'внештатный'}</span></div>`;
