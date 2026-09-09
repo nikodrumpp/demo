@@ -30,7 +30,6 @@
   h1{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(24px,3.6vw,36px);line-height:1.15;margin:0 0 10px;color:var(--paper);}
   .sub{color:var(--steel-500);font-size:14.5px;max-width:70ch;line-height:1.55;}
 
-  /* journey bar */
   .journey{display:flex;align-items:flex-start;gap:0;margin:26px 0 30px;overflow-x:auto;padding-bottom:4px;}
   .jstep{display:flex;flex-direction:column;align-items:center;flex:1;min-width:96px;position:relative;}
   .jstep .jline{position:absolute;top:11px;left:-50%;width:100%;height:2px;background:var(--steel-700);z-index:0;}
@@ -49,7 +48,7 @@
   .col-head b{color:var(--paper);font-weight:600;}
 
   .phone{background:#0F0E0C;border-radius:28px;padding:10px;box-shadow:0 20px 40px -20px rgba(0,0,0,.6);}
-  .phone-screen{background:var(--paper);border-radius:20px;min-height:460px;padding:16px 14px;color:var(--ink);display:flex;flex-direction:column;gap:12px;position:relative;}
+  .phone-screen{background:var(--paper);border-radius:20px;min-height:480px;padding:16px 14px;color:var(--ink);display:flex;flex-direction:column;gap:12px;position:relative;}
   .phone-topbar{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--steel-500);display:flex;justify-content:space-between;}
   .brand{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.02em;}
   .phone-label{font-family:'Oswald',sans-serif;font-size:13px;color:var(--steel-500);letter-spacing:.02em;}
@@ -59,8 +58,10 @@
   .btn{font-family:'Oswald',sans-serif;font-size:13px;padding:10px 16px;border-radius:8px;border:none;letter-spacing:.02em;cursor:pointer;}
   .btn-dark{background:var(--ink);color:var(--paper);}
   .btn-dark:hover{opacity:.9;}
-  .btn-outline{background:transparent;border:1px solid var(--ink);color:var(--ink);}
-  .btn-full{width:100%;margin-top:auto;}
+  .btn-outline{background:transparent;border:1.5px solid var(--ink);color:var(--ink);}
+  .btn-full{width:100%;}
+  .btn-full.push{margin-top:auto;}
+  .choice-stack{display:flex;flex-direction:column;gap:10px;margin-top:auto;}
   .field{background:#fff;border:1px solid #ddd4bf;border-radius:8px;padding:9px 10px;font-size:12px;color:var(--steel-800);font-family:'Inter',sans-serif;}
   .field-lab{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--steel-500);text-transform:uppercase;letter-spacing:.04em;}
   .receipt{background:#fff;padding:12px 12px 16px;font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:1.7;color:var(--ink);border-radius:6px;}
@@ -75,21 +76,16 @@
   .weeklabels{display:flex;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--steel-500);}
   .weeklabels span{flex:1;text-align:center;}
 
-  .board{background:var(--steel-800);border:1px solid var(--steel-700);border-radius:14px;padding:16px 16px 18px;min-height:460px;}
-  .ticket-row{display:flex;align-items:center;gap:10px;padding:9px 8px;border-radius:8px;background:var(--steel-900);margin-bottom:7px;border-left:3px solid var(--steel-700);}
-  .ticket-row.on{border-left-color:var(--sage);}
-  .ticket-row.temp{border-left-color:var(--amber);}
-  .ticket-row.alert{border-left-color:var(--rust);}
-  .dot{width:9px;height:9px;border-radius:50%;background:var(--steel-500);flex-shrink:0;}
+  .board{background:var(--steel-800);border:1px solid var(--steel-700);border-radius:14px;padding:16px 16px 18px;min-height:480px;}
+  .ticket-row{display:flex;align-items:center;gap:10px;padding:9px 8px;border-radius:8px;background:#efe7d3;margin-bottom:7px;border-left:3px solid #cabf9f;}
+  .dot{width:9px;height:9px;border-radius:50%;background:#b6ab8b;flex-shrink:0;}
   .dot.on{background:var(--sage);}
-  .dot.temp{background:var(--amber);}
-  .dot.alert{background:var(--rust);}
-  .t-name{font-family:'Inter',sans-serif;font-size:13px;color:var(--paper);flex:1;}
-  .t-name small{display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--steel-500);margin-top:2px;}
-  .tag{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:2px 7px;border-radius:20px;border:1px solid var(--steel-700);color:var(--steel-500);white-space:nowrap;}
-  .tag.temp{color:var(--amber);border-color:var(--amber);}
+  .t-name{font-family:'Inter',sans-serif;font-size:13px;color:var(--ink);flex:1;}
+  .t-name small{display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8a8065;margin-top:2px;}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:3px 8px;border-radius:20px;border:1px solid;white-space:nowrap;cursor:pointer;background:transparent;}
   .tag.staff{color:var(--sage);border-color:var(--sage);}
-  .manual-btn{font-family:'IBM Plex Mono',monospace;font-size:10.5px;background:transparent;border:1px dashed var(--amber);color:var(--amber);padding:5px 8px;border-radius:6px;cursor:pointer;}
+  .tag.temp{color:var(--amber);border-color:var(--amber);}
+  .manual-btn{font-family:'IBM Plex Mono',monospace;font-size:10.5px;background:transparent;border:1px dashed var(--amber);color:#a5641c;padding:5px 8px;border-radius:6px;cursor:pointer;}
   .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;}
   .stat{background:var(--steel-900);border-radius:10px;padding:14px;}
   .stat .num{font-family:'Oswald',sans-serif;font-size:25px;color:var(--paper);}
@@ -116,7 +112,7 @@
 
   <div class="cols">
     <div>
-      <div class="col-head"><b>Сотрудник</b><span>Марис К.</span></div>
+      <div class="col-head"><b>Сотрудник</b><span id="empHeadName">первое сканирование</span></div>
       <div class="phone"><div class="phone-screen" id="empScreen"></div></div>
     </div>
     <div>
@@ -132,7 +128,7 @@
   <p class="caption" id="caption"></p>
 
   <div class="disclaimer">
-    Это интерактивный макет: данные вымышленные, никуда не отправляются. Он показывает логику будущей системы, а не готовый продукт.
+    Это интерактивный макет: данные вымышленные, никуда не отправляются. Он показывает логику будущей системы, а не готовый продукт. Экран "Сотрудник" можно провести двумя разными путями — сбросьте демо, чтобы попробовать второй сценарий.
     <br><button class="reset" id="resetBtn">Начать сначала</button>
   </div>
 
@@ -143,48 +139,52 @@
 const HOURS = { maris:8.97, dzintra:8.5, baiba:4.5, edgars:8.75 };
 function fmt(h){ return `${Math.floor(h)}ч ${Math.round((h%1)*60)}м`; }
 
-let state = {
-  onboarding: 'splash', // splash -> form -> done
-  maris: 'idle',        // idle -> in -> out
-  dzintra: 'idle',      // idle -> in -> out
-  baiba: 'idle',        // idle -> in -> out
-  edgars: 'idle',       // idle -> manual_in
-  leadTab: 'shift',     // shift | self
-  empTab: 'today'       // today | stats
-};
+const defaultState = () => ({
+  choice: null,          // null | 'install' | 'onetime'
+  step: 'choice',        // choice -> form -> done   |   choice -> onetime_form -> onetime_done
+  maris: 'idle',         // idle -> in -> out
+  dzintra: 'idle',       // idle -> in -> out
+  baiba: 'idle',         // idle -> in -> out
+  edgars: 'idle',        // idle -> manual_in
+  types: { maris:'staff', dzintra:'staff', baiba:'temp', edgars:'staff' },
+  leadTab: 'shift',
+  empTab: 'today'
+});
+let state = defaultState();
 
-function reset(){
-  state = { onboarding:'splash', maris:'idle', dzintra:'idle', baiba:'idle', edgars:'idle', leadTab:'shift', empTab:'today' };
-  render();
-}
+function reset(){ state = defaultState(); render(); }
 
 function act(action){
-  switch(action){
-    case 'onb-start': state.onboarding='form'; break;
-    case 'onb-finish': state.onboarding='done'; break;
-    case 'maris-in': state.maris='in'; break;
-    case 'maris-out': state.maris='out'; break;
-    case 'emp-tab-today': state.empTab='today'; break;
-    case 'emp-tab-stats': state.empTab='stats'; break;
-    case 'dzintra-in': state.dzintra='in'; break;
-    case 'dzintra-out': state.dzintra='out'; break;
-    case 'lead-tab-self': state.leadTab='self'; break;
-    case 'lead-tab-shift': state.leadTab='shift'; break;
-    case 'baiba-register': state.baiba='in'; break;
-    case 'baiba-confirm-out': state.baiba='out'; break;
-    case 'edgars-manual': state.edgars='manual_in'; break;
+  if(action==='choose-install'){ state.choice='install'; state.step='form'; }
+  else if(action==='choose-onetime'){ state.choice='onetime'; state.step='onetime_form'; }
+  else if(action==='onb-finish'){ state.step='done'; }
+  else if(action==='onetime-finish'){ state.baiba='in'; state.step='onetime_done'; }
+  else if(action==='onetime-out'){ state.baiba='out'; }
+  else if(action==='maris-in'){ state.maris='in'; }
+  else if(action==='maris-out'){ state.maris='out'; }
+  else if(action==='emp-tab-today'){ state.empTab='today'; }
+  else if(action==='emp-tab-stats'){ state.empTab='stats'; }
+  else if(action==='dzintra-in'){ state.dzintra='in'; }
+  else if(action==='dzintra-out'){ state.dzintra='out'; }
+  else if(action==='lead-tab-self'){ state.leadTab='self'; }
+  else if(action==='lead-tab-shift'){ state.leadTab='shift'; }
+  else if(action==='edgars-manual'){ state.edgars='manual_in'; }
+  else if(action.startsWith('toggle:')){
+    const who = action.split(':')[1];
+    state.types[who] = state.types[who]==='staff' ? 'temp' : 'staff';
   }
   render();
 }
 
 function milestones(){
+  const firstMarkDone = (state.choice==='install' && state.maris!=='idle') || (state.choice==='onetime' && state.baiba!=='idle');
+  const closedDone = state.maris==='out' || state.baiba==='out';
   return [
-    { key:'onb', label:'Онбординг сотрудника', done: state.onboarding==='done' },
-    { key:'in', label:'Вход на смену', done: state.maris!=='idle' },
-    { key:'temp', label:'Подработка на месте', done: state.baiba!=='idle' },
-    { key:'manual', label:'Пропущенная отметка', done: state.edgars==='manual_in' },
-    { key:'out', label:'Закрытие смены', done: state.maris==='out' },
-    { key:'report', label:'Отчёт руководителя', done: state.maris==='out' && state.baiba!=='idle' && state.edgars==='manual_in' },
+    { label:'Выбор способа отметки', done: state.choice!==null },
+    { label:'Первая отметка / регистрация', done: firstMarkDone },
+    { label:'Пропущенная отметка исправлена', done: state.edgars==='manual_in' },
+    { label:'Закрытие смены', done: closedDone },
+    { label:'Отчёт руководителя', done: closedDone && state.edgars==='manual_in' },
   ];
 }
 
@@ -193,74 +193,101 @@ function renderJourney(){
   let activeSet=false;
   const html = ms.map((m,idx)=>{
     let cls='';
-    if(m.done){ cls='done'; }
-    else if(!activeSet){ cls='active'; activeSet=true; }
+    if(m.done){ cls='done'; } else if(!activeSet){ cls='active'; activeSet=true; }
     return `<div class="jstep ${cls}"><div class="jline"></div><div class="jdot">${m.done?'✓':idx+1}</div><div class="jlabel">${m.label}</div></div>`;
   }).join('');
   document.getElementById('journey').innerHTML = html;
-  const activeLabel = ms.find(m=>!m.done)?.label || 'День завершён';
+  const activeLabel = ms.find(m=>!m.done)?.label || 'Сценарий завершён';
   document.getElementById('caption').textContent = 'Текущий этап сценария: ' + activeLabel + '.';
 }
 
 function renderEmployee(){
   const el = document.getElementById('empScreen');
-  if(state.onboarding==='splash'){
+  const headName = document.getElementById('empHeadName');
+
+  if(state.step==='choice'){
+    headName.textContent = 'первое сканирование';
     el.innerHTML = `
       <div class="phone-topbar"><span class="brand">Restoranix</span><span>08:00</span></div>
-      <div style="margin-top:40px;text-align:center;">
-        <div class="name-line">Приложение установлено</div>
-        <p class="helper" style="margin-top:10px;">Первым шагом после установки Restoranix сотрудник проходит онбординг: система фиксирует его данные, чтобы дальше отслеживать его рабочее время.</p>
+      <div style="margin-top:20px;">
+        <div class="name-line">Отмечаем ваш приход</div>
+        <p class="helper" style="margin-top:8px;">Телефон сканирует QR впервые — система не узнаёт устройство. Как продолжить?</p>
       </div>
-      <button class="btn btn-dark btn-full" data-action="onb-start">Пройти онбординг</button>`;
+      <div class="choice-stack">
+        <button class="btn btn-dark btn-full" data-action="choose-install">Установить приложение</button>
+        <button class="btn btn-outline btn-full" data-action="choose-onetime">Разовая отметка</button>
+      </div>
+      <p class="helper">«Установить» — если вы работаете регулярно. «Разово» — если вы здесь не на постоянной основе.</p>`;
     return;
   }
-  if(state.onboarding==='form'){
-    el.innerHTML = `
-      <div class="phone-topbar"><span class="brand">Restoranix</span><span>08:01</span></div>
-      <div class="phone-label">Онбординг сотрудника</div>
-      <div class="field-lab">ФИО</div><div class="field">Марис Кливе</div>
-      <div class="field-lab">Телефон</div><div class="field">+371 2• •• •• 41</div>
-      <div class="field-lab">Фото для идентификации</div><div class="field">📷 фото загружено</div>
-      <button class="btn btn-dark btn-full" data-action="onb-finish">Завершить онбординг</button>`;
+
+  if(state.choice==='install'){
+    headName.textContent = 'Марис К.';
+    if(state.step==='form'){
+      el.innerHTML = `
+        <div class="phone-topbar"><span class="brand">Restoranix</span><span>08:01</span></div>
+        <div class="phone-label">Регистрация — вы будете штатным</div>
+        <div class="field-lab">ФИО</div><div class="field">Марис Кливе</div>
+        <div class="field-lab">Телефон</div><div class="field">+371 2• •• •• 41</div>
+        <div class="field-lab">Фото для идентификации</div><div class="field">📷 фото загружено</div>
+        <button class="btn btn-dark btn-full push" data-action="onb-finish">Завершить онбординг</button>`;
+      return;
+    }
+    if(state.maris==='idle'){
+      el.innerHTML = `
+        <div class="phone-topbar"><span class="brand">Restoranix</span><span>08:03</span></div>
+        <div class="phone-label">Профиль создан ✓ статус: штатный</div>
+        <div class="qr"></div>
+        <button class="btn btn-dark btn-full" data-action="maris-in">Сканировать QR — вход</button>`;
+      return;
+    }
+    const tabs = `<div class="tabs">
+        <button class="tab ${state.empTab==='today'?'active':''}" data-action="emp-tab-today">Сегодня</button>
+        <button class="tab ${state.empTab==='stats'?'active':''}" data-action="emp-tab-stats">Статистика</button>
+      </div>`;
+    if(state.empTab==='today'){
+      if(state.maris==='in'){
+        el.innerHTML = `<div class="phone-topbar"><span class="brand">Restoranix</span><span>13:40</span></div>${tabs}
+          <div class="receipt"><div class="status-in">✓ Вы в цехе</div>вход: 08:03<br>сейчас: 13:40<br>отработано: 5ч 37м</div>
+          <button class="btn btn-dark btn-full" data-action="maris-out">Сканировать QR — выход</button>`;
+      } else {
+        el.innerHTML = `<div class="phone-topbar"><span class="brand">Restoranix</span><span>17:01</span></div>${tabs}
+          <div class="receipt"><div class="status-in">✓ Смена закрыта</div>вход: 08:03<br>выход: 17:01<br>итого: ${fmt(HOURS.maris)}</div>`;
+      }
+    } else {
+      el.innerHTML = `<div class="phone-topbar"><span class="brand">Restoranix</span><span>неделя</span></div>${tabs}
+        <div class="phone-label">Ваши часы за неделю</div>
+        <div class="weekbars">
+          <div style="height:70%"></div><div style="height:85%"></div><div style="height:60%"></div><div style="height:90%"></div>
+          <div class="today" style="height:${state.maris==='out'?'96%':'55%'}"></div><div style="height:0%"></div><div style="height:0%"></div>
+        </div>
+        <div class="weeklabels"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
+        <p class="helper">Сотруднику доступна только его собственная статистика.</p>`;
+    }
     return;
   }
-  // onboarding done
-  if(state.maris==='idle'){
-    el.innerHTML = `
-      <div class="phone-topbar"><span class="brand">Restoranix</span><span>08:03</span></div>
-      <div class="phone-label">Профиль создан ✓</div>
-      <div class="qr"></div>
-      <button class="btn btn-dark btn-full" data-action="maris-in">Сканировать QR — вход</button>`;
-    return;
-  }
-  const tabs = `<div class="tabs">
-      <button class="tab ${state.empTab==='today'?'active':''}" data-action="emp-tab-today">Сегодня</button>
-      <button class="tab ${state.empTab==='stats'?'active':''}" data-action="emp-tab-stats">Статистика</button>
-    </div>`;
-  if(state.empTab==='today'){
-    if(state.maris==='in'){
+
+  if(state.choice==='onetime'){
+    headName.textContent = 'Байба Р. (разово)';
+    if(state.step==='onetime_form'){
+      el.innerHTML = `
+        <div class="phone-topbar"><span class="brand">Restoranix</span><span>08:10</span></div>
+        <div class="phone-label">Разовая отметка — без создания профиля</div>
+        <div class="field-lab">ФИО</div><div class="field">Байба Робежниеце</div>
+        <div class="field-lab">Телефон</div><div class="field">+371 2• •• •• 07</div>
+        <button class="btn btn-dark btn-full push" data-action="onetime-finish">Отметить приход</button>`;
+      return;
+    }
+    if(state.baiba==='in'){
       el.innerHTML = `
         <div class="phone-topbar"><span class="brand">Restoranix</span><span>13:40</span></div>
-        ${tabs}
-        <div class="receipt"><div class="status-in">✓ Вы в цехе</div>вход: 08:03<br>сейчас: 13:40<br>отработано: 5ч 37м</div>
-        <button class="btn btn-dark btn-full" data-action="maris-out">Сканировать QR — выход</button>`;
-    } else {
-      el.innerHTML = `
-        <div class="phone-topbar"><span class="brand">Restoranix</span><span>17:01</span></div>
-        ${tabs}
-        <div class="receipt"><div class="status-in">✓ Смена закрыта</div>вход: 08:03<br>выход: 17:01<br>итого: ${fmt(HOURS.maris)}</div>`;
+        <div class="receipt"><div class="status-in">✓ Отмечено · разово</div>вход: 08:10<br>статус: внештатный<br>профиль не создан</div>
+        <button class="btn btn-dark btn-full push" data-action="onetime-out">Отметить уход</button>`;
+      return;
     }
-  } else {
     el.innerHTML = `
-      <div class="phone-topbar"><span class="brand">Restoranix</span><span>неделя</span></div>
-      ${tabs}
-      <div class="phone-label">Ваши часы за неделю</div>
-      <div class="weekbars">
-        <div style="height:70%"></div><div style="height:85%"></div><div style="height:60%"></div><div style="height:90%"></div>
-        <div class="today" style="height:${state.maris==='out'?'96%':'55%'}"></div><div style="height:0%"></div><div style="height:0%"></div>
-      </div>
-      <div class="weeklabels"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
-      <p class="helper">Сотруднику доступна только его собственная статистика.</p>`;
+      <div class="phone-topbar"><span class="brand">Restoranix</span><span>17:05</span></div>
+      <div class="receipt"><div class="status-in">✓ Смена закрыта</div>вход: 08:10<br>выход: 17:05<br>итого: ${fmt(HOURS.baiba)}</div>`;
   }
 }
 
@@ -285,59 +312,50 @@ function renderLead(){
     }
     return;
   }
-  // shift monitor tab — brigade lead sees everyone, incl. herself
   const rows = [];
-  rows.push(row('Марис К.', state.maris, 'staff', '08:03'));
-  rows.push(row('Дзинтра О. (вы)', state.dzintra, 'staff', '07:55'));
-  rows.push(bайbaRow());
+  rows.push(personRow('maris','Марис К.', state.maris, '08:03', state.choice==='install'));
+  rows.push(personRow('dzintra','Дзинтра О. (вы)', state.dzintra, '07:55', true));
+  rows.push(personRow('baiba','Байба Р.', state.baiba, '08:10', state.choice==='onetime'));
   rows.push(edgarsRow());
   el.innerHTML = `<div class="phone-topbar"><span class="brand">Restoranix</span><span>13:40</span></div>${tabs}
     <div class="phone-label">Смена · цех №1</div>
+    <p class="helper" style="margin:-4px 0 2px;">Метка штатный/внештатный — нажмите, чтобы поправить вручную.</p>
     ${rows.join('')}`;
 }
 
-function row(name, status, type, inTime){
-  const cls = status==='in' ? 'on' : (status==='out' ? '' : '');
+function personRow(key, name, status, inTime, exists){
+  if(!exists){
+    return `<div class="ticket-row" style="opacity:.45;">
+      <span class="dot"></span><span class="t-name">${name}<small>ещё не отмечался</small></span></div>`;
+  }
   const label = status==='in' ? `на месте с ${inTime}` : (status==='out' ? 'смена закрыта' : 'не отмечен');
-  return `<div class="ticket-row ${status==='in'?'on':''}" style="color:var(--ink);background:#efe7d3;border-left-color:${status==='in'?'var(--sage)':'#cabf9f'}">
-    <span class="dot ${status==='in'?'on':''}" style="background:${status==='in'?'var(--sage)':'#b6ab8b'}"></span>
-    <span class="t-name" style="color:var(--ink)">${name}<small style="color:#8a8065">${label}</small></span>
-    <span class="tag ${type}" style="color:${type==='staff'?'var(--sage)':'var(--amber)'};border-color:${type==='staff'?'var(--sage)':'var(--amber)'}">${type==='staff'?'штатный':'внештатный'}</span>
+  const type = state.types[key];
+  return `<div class="ticket-row ${status==='in'?'on':''}" style="border-left-color:${status==='in'?'var(--sage)':'#cabf9f'}">
+    <span class="dot ${status==='in'?'on':''}"></span>
+    <span class="t-name">${name}<small>${label}</small></span>
+    <span class="tag ${type}" data-action="toggle:${key}">${type==='staff'?'штатный':'внештатный'}</span>
   </div>`;
-}
-function bайbaRow(){
-  if(state.baiba==='idle'){
-    return `<div class="ticket-row" style="background:#efe7d3;color:var(--ink)">
-      <span class="dot"></span><span class="t-name" style="color:var(--ink)">Байба Р.<small style="color:#8a8065">пришла на подработку, не в системе</small></span>
-      <button class="manual-btn" data-action="baiba-register">Зарегистрировать на месте</button></div>`;
-  }
-  if(state.baiba==='in'){
-    return `<div class="ticket-row" style="background:#efe7d3;color:var(--ink);border-left-color:var(--amber)">
-      <span class="dot" style="background:var(--amber)"></span><span class="t-name" style="color:var(--ink)">Байба Р.<small style="color:#8a8065">вход 08:10</small></span>
-      <span class="tag" style="color:var(--amber);border-color:var(--amber)">внештатный</span>
-      <button class="manual-btn" data-action="baiba-confirm-out">Подтвердить выход</button></div>`;
-  }
-  return `<div class="ticket-row" style="background:#efe7d3;color:var(--ink)">
-    <span class="dot"></span><span class="t-name" style="color:var(--ink)">Байба Р.<small style="color:#8a8065">смена закрыта · ${fmt(HOURS.baiba)}</small></span>
-    <span class="tag" style="color:var(--amber);border-color:var(--amber)">внештатный</span></div>`;
 }
 function edgarsRow(){
   if(state.edgars==='idle'){
-    return `<div class="ticket-row" style="background:#efe7d3;color:var(--ink);border-left-color:var(--rust)">
-      <span class="dot" style="background:var(--rust)"></span><span class="t-name" style="color:var(--ink)">Эдгар П.<small style="color:#8a8065">на месте, забыл отметиться</small></span>
+    return `<div class="ticket-row" style="border-left-color:var(--rust)">
+      <span class="dot" style="background:var(--rust)"></span><span class="t-name">Эдгар П.<small>на месте, забыл отметиться</small></span>
       <button class="manual-btn" data-action="edgars-manual">Отметить вручную</button></div>`;
   }
-  return `<div class="ticket-row" style="background:#efe7d3;color:var(--ink)">
-    <span class="dot" style="background:var(--amber)"></span><span class="t-name" style="color:var(--ink)">Эдгар П.<small style="color:var(--amber)">вход 08:15 · скорректировано бригадиром</small></span>
-    <span class="tag" style="color:var(--sage);border-color:var(--sage)">штатный</span></div>`;
+  return `<div class="ticket-row" style="border-left-color:var(--amber)">
+    <span class="dot" style="background:var(--amber)"></span><span class="t-name">Эдгар П.<small style="color:var(--amber)">вход 08:15 · скорректировано бригадиром</small></span>
+    <span class="tag ${state.types.edgars}" data-action="toggle:edgars">${state.types.edgars==='staff'?'штатный':'внештатный'}</span></div>`;
 }
 
 function renderOwner(){
   document.getElementById('ownerClock').textContent = '13:40 · сегодня';
-  const active = [state.maris,state.dzintra,state.baiba,state.edgars].filter(s=>s==='in'||s==='manual_in').length;
-  const closed = [state.maris,state.dzintra,state.baiba].filter(s=>s==='out').length;
-  const staffActive = [state.maris,state.dzintra,state.edgars].filter(s=>s!=='idle').length;
-  const tempActive = state.baiba!=='idle' ? 1 : 0;
+  const people = ['maris','dzintra','baiba','edgars'];
+  const statusOf = { maris:state.maris, dzintra:state.dzintra, baiba:state.baiba, edgars: state.edgars==='manual_in'?'in':'idle' };
+  const active = people.filter(k=>statusOf[k]==='in').length;
+  const closed = people.filter(k=>statusOf[k]==='out').length;
+  const engaged = people.filter(k=>statusOf[k]!=='idle');
+  const staffActive = engaged.filter(k=>state.types[k]==='staff').length;
+  const tempActive = engaged.filter(k=>state.types[k]==='temp').length;
   let closedHours = 0;
   if(state.maris==='out') closedHours+=HOURS.maris;
   if(state.dzintra==='out') closedHours+=HOURS.dzintra;
